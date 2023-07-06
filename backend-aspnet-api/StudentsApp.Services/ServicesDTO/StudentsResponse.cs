@@ -1,6 +1,8 @@
-﻿namespace StudentsApp.Repository.Entities
+﻿
+
+namespace StudentsApp.Services.ServicesDTO
 {
-    public class Student
+    public class StudentsResponse
     {
         public int Id { get; set; }
         public string? Name { get; set; }

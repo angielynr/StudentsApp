@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using StudentsApp.Repository.Entities;
+using StudentsApp.Repository.RepositoryDTO;
 
 namespace StudentsApp.Repository.DataContext
 {
@@ -11,7 +11,7 @@ namespace StudentsApp.Repository.DataContext
 
 
         //DBTable
-        public DbSet<Student> students { get; set; }
+        public DbSet<Student> Students { get; set; }
 
     }
 }
