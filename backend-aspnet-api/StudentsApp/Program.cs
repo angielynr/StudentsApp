@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using StudentsApp.Repository.Commands;
 using StudentsApp.Repository.DataContext;
 using StudentsApp.Repository.Interfaces;
 using StudentsApp.Repository.Queries;
+using StudentsApp.Services.Commands;
 using StudentsApp.Services.Interfaces;
 using StudentsApp.Services.Queries;
 
@@ -37,6 +39,8 @@ void ConfiguredServices(IServiceCollection services)
 {
     services.AddScoped<IStudentServiceQueries, StudentServiceQueries>();
     services.AddScoped<IStudentsRepositoryQueries, StudentRepositoryQueries>();
+    services.AddScoped<IStudentServiceCommands, StudentServiceCommands>();
+    services.AddScoped<IStudentsRepositoryCommands, StudentsRepositoryCommands>();
 
     services.AddDbContext<AppDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 }

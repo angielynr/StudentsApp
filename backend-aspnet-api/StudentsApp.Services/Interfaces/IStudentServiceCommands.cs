@@ -5,8 +5,8 @@ namespace StudentsApp.Services.Interfaces
 {
     public interface IStudentServiceCommands
     {
-        Task<StudentResponseDTO> AddStudent(StudentRequestDTO studentDTO);
+        Task<ResultResponseDTO> AddStudent(StudentRequestDTO studentDTO);
         Task<StudentResponseDTO> UpdateStudent(StudentRequestDTO studentDTO);
-        Task<ResultResponse> DeleteStudent(int id);
+        Task<ResultResponseDTO> DeleteStudent(int id);
     }
 }

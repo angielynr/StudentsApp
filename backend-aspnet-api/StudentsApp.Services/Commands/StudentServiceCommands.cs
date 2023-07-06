@@ -8,12 +8,14 @@ namespace StudentsApp.Services.Commands
     public class StudentServiceCommands : IStudentServiceCommands
     {
         private readonly IStudentsRepositoryCommands _studentsRepositoryCommands;
+        private readonly IStudentsRepositoryQueries _studentsRepositoryQueries;
 
-        public StudentServiceCommands(IStudentsRepositoryCommands studentsRepositoryCommands)
+        public StudentServiceCommands(IStudentsRepositoryCommands studentsRepositoryCommands, IStudentsRepositoryQueries studentsRepositoryQueries)
         {
             _studentsRepositoryCommands = studentsRepositoryCommands;
+            _studentsRepositoryQueries = studentsRepositoryQueries;
         }
-        public async Task<StudentResponseDTO> AddStudent(StudentRequestDTO studentDTO)
+        public async Task<ResultResponseDTO> AddStudent(StudentRequestDTO studentDTO)
         {
             var student = await _studentsRepositoryCommands.AddStudent(new Student()
             {
@@ -24,13 +26,8 @@ namespace StudentsApp.Services.Commands
                 Gender = studentDTO.Gender,
             });
 
-            var response = new StudentResponseDTO()
+            var response = new ResultResponseDTO()
             {
-                Id = studentDTO.Id,
-                Name = studentDTO.Name,
-                Address = studentDTO.Address,
-                Age = studentDTO.Age,
-                Gender = studentDTO.Gender,
                 ResultMessage = "Success",
             };
 

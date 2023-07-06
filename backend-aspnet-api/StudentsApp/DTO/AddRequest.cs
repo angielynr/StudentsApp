@@ -1,13 +1,7 @@
-﻿
-
-using System.ComponentModel.DataAnnotations;
-
-namespace StudentsApp.Services.ServicesDTO
+﻿namespace StudentsApp.API.DTO
 {
-    public class StudentRequestDTO
+    public class AddRequest
     {
-        [Key]
-        public int Id { get; set; }
         public string? Name { get; set; }
         public int Age { get; set; }
         public string? Gender { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentsApp.API.DTO;
 using StudentsApp.Services.Interfaces;
+using StudentsApp.Services.ServicesDTO;
 
 namespace StudentsApp.API.Controllers
 {
@@ -9,10 +10,12 @@ namespace StudentsApp.API.Controllers
     public class StudentsController : Controller
     {
         private readonly IStudentServiceQueries _studentServiceQueries;
+        private readonly IStudentServiceCommands _studentServiceCommands;
 
-        public StudentsController(IStudentServiceQueries studentServiceQueries)
+        public StudentsController(IStudentServiceQueries studentServiceQueries, IStudentServiceCommands studentServiceCommands)
         {
             _studentServiceQueries = studentServiceQueries;
+            _studentServiceCommands = studentServiceCommands;
         }
 
         [HttpGet]
@@ -59,6 +62,65 @@ namespace StudentsApp.API.Controllers
                 Age = s.Age,
                 Gender = s.Gender,
             });
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddStudent([FromBody] AddRequest addRequestDTO)
+        {
+            var response = new ResponseDTO();
+
+            var student = new StudentRequestDTO()
+            {
+                Name = addRequestDTO.Name,
+                Address = addRequestDTO.Address,
+                Age = addRequestDTO.Age,
+                Gender = addRequestDTO.Gender,
+            };
+
+            var result = await _studentServiceCommands.AddStudent(student);
+
+            response.ResultMessage = result.ResultMessage;
+
+            return Ok(response);
+        }
+
+        [Route("{id}")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateStudent(int id, [FromBody] UpdateRequest updateRequestDTO)
+        {
+            var student = new StudentRequestDTO();
+            if (id != updateRequestDTO.Id)
+            {
+                return null;
+            }
+
+            student.Id = id;
+            student.Name = updateRequestDTO.Name;
+            student.Address = updateRequestDTO.Address;
+            student.Age = updateRequestDTO.Age;
+            student.Gender = updateRequestDTO.Gender;
+
+            var result = await _studentServiceCommands.UpdateStudent(student);
+
+            var response = new StudentsResponse()
+            {
+                Id = result.Id,
+                Name = result.Name,
+                Address = result.Address,
+                Age = result.Age,
+                Gender = result.Gender,
+            };
+
+            return Ok(response);
+        }
+
+        [Route("{id}")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteStudent(int id)
+        {
+            var result = await _studentServiceCommands.DeleteStudent(id);
 
             return Ok(result);
         }
