@@ -4,6 +4,6 @@ namespace StudentsApp.Services.Interfaces
 {
     public interface IStudentServiceQueries
     {
-        Task<List<StudentsResponse>> GetAllStudents();
+        Task<List<StudentResponseDTO>> GetAllStudents();
     }
 }

@@ -12,10 +12,10 @@ namespace StudentsApp.Services.Queries
         {
             _studentsRepositoryQueries = studentsRepositoryQueries;
         }
-        public async Task<List<StudentsResponse>> GetAllStudents()
+        public async Task<List<StudentResponseDTO>> GetAllStudents()
         {
             var students = await _studentsRepositoryQueries.GetAllStudents();
-            List<StudentsResponse> result = new List<StudentsResponse>();
+            List<StudentResponseDTO> result = new List<StudentResponseDTO>();
 
             if (students == null)
             {
@@ -24,7 +24,7 @@ namespace StudentsApp.Services.Queries
 
             foreach (var student in students)
             {
-                result.Add(new StudentsResponse()
+                result.Add(new StudentResponseDTO()
                 {
                     Id = student.Id,
                     Name = student.Name,
