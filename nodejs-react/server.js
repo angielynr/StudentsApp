@@ -5,23 +5,16 @@ const Student = require("./models/student");
 const bodyParser = require("body-parser");
 
 const app = express();
+const router = express.Router();
+
 app.use(bodyParser.json());
-app.use(express.json());
+app.use(router);
 
-// const router = express.Router();
-// router.route("/api/students").get((req, res) => {
-//     console.log("test get method");
-//     res.status(200).json({
-//         data: "test get",
-//         message: "get method success",
-//     });
-// });
-
-app.get("/", (req, res) => {
+router.get("/", (req, res) => {
     res.status(200).json({ message: "Hello from StudentApp!" });
 });
 
-app.get("/api/students", async (req, res) => {
+router.get("/api/students", async (req, res) => {
     try {
         const student = await Student.find(res.body);
         res.status(200).json(student);
@@ -33,7 +26,7 @@ app.get("/api/students", async (req, res) => {
     }
 });
 
-app.get("/api/students/:id", async (req, res) => {
+router.get("/api/students/:id", async (req, res) => {
     try {
         const { id } = req.params;
         const student = await Student.findById(id);
@@ -46,7 +39,7 @@ app.get("/api/students/:id", async (req, res) => {
     }
 });
 
-app.post("/api/students", async (req, res) => {
+router.post("/api/students", async (req, res) => {
     try {
         const student = await Student.create(req.body);
         res.status(200).json(student);
@@ -58,7 +51,7 @@ app.post("/api/students", async (req, res) => {
     }
 });
 
-app.put("/api/students/:id", async (req, res) => {
+router.put("/api/students/:id", async (req, res) => {
     try {
         const { id } = req.params;
         const student = await Student.findByIdAndUpdate(id, req.body);
@@ -77,7 +70,7 @@ app.put("/api/students/:id", async (req, res) => {
     }
 });
 
-app.delete("/api/students/:id", async (req, res) => {
+router.delete("/api/students/:id", async (req, res) => {
     try {
         const { id } = req.params;
         const student = await Student.findByIdAndDelete(id);
