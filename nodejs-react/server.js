@@ -3,9 +3,12 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const studentController = require("./controllers/studentsController");
+const responseTimeMiddleware = require("./middleware/responseTimeMiddleware");
 
 const app = express();
 const router = express.Router();
+
+app.use(responseTimeMiddleware);
 
 app.use(bodyParser.json());
 app.use(router);
