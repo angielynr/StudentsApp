@@ -78,6 +78,30 @@ const deleteStudent = async (req, res) => {
     }
 };
 
+const deleteStudentById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const student = await Student.findByIdAndDelete(id);
+        if (!student) {
+            return res.status(404).json({
+                message: `cannot find student with ID: ${id}`,
+            });
+        }
+        res.status(200).json(student);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({
+            message: error.message,
+        });
+    }
+};
+
+const getDetails = async (req, res) => {
+    res.status(500).json({
+        port: `${process.env.HTTP_PORT}`,
+    });
+};
+
 module.exports = {
     home,
     getAllStudents,
@@ -85,4 +109,6 @@ module.exports = {
     createStudent,
     updateStudent,
     deleteStudent,
+    deleteStudentById,
+    getDetails,
 };

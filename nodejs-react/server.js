@@ -9,10 +9,10 @@ const app = express();
 const router = express.Router();
 
 app.use(responseTimeMiddleware);
-
 app.use(bodyParser.json());
 app.use(router);
 
+//route
 router.route("/").get(studentController.home);
 
 router
@@ -25,6 +25,12 @@ router
     .get(studentController.getStudent)
     .put(studentController.updateStudent)
     .delete(studentController.deleteStudent);
+
+router
+    .route("/api/deletestudent/:id")
+    .post(studentController.deleteStudentById);
+
+router.route("/api/details").get(studentController.getDetails);
 
 // database connection
 mongoose
