@@ -14,6 +14,11 @@ const studentSchema = mongoose.Schema(
             type: String,
             required: false,
         },
+        dateOfBirth: {
+            type: Date, //YYYY-MM-DD
+            required: true,
+            trim: true,
+        },
         address: {
             type: String,
             required: [true, "Please enter address"],
