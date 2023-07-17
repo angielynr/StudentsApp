@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
     return (
         <nav
-            class="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-bottom-dark"
+            className="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-bottom-dark"
             data-bs-theme="dark"
         >
-            <div class="container-fluid">
-                <Link class="navbar-brand" href="#">
+            <div className="container-fluid">
+                <Link className="navbar-brand" href="#">
                     Student App
                 </Link>
                 <button
-                    class="navbar-toggler"
+                    className="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarNav"
@@ -20,31 +20,31 @@ const Navbar = () => {
                     aria-expanded="false"
                     aria-label="Toggle navigation"
                 >
-                    <span class="navbar-toggler-icon"></span>
+                    <span className="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
                             <Link
-                                class="nav-link active"
+                                className="nav-link active"
                                 aria-current="page"
                                 to="/"
                             >
                                 Home
                             </Link>
                         </li>
-                        <li class="nav-item">
-                            <Link class="nav-link" to="/students">
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/students">
                                 Students
                             </Link>
                         </li>
-                        <li class="nav-item">
-                            <Link class="nav-link" to="/students/create">
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/students/create">
                                 Create
                             </Link>
                         </li>
-                        <li class="nav-item">
-                            <Link class="nav-link" to="/students/update">
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/students/update">
                                 Update
                             </Link>
                         </li>

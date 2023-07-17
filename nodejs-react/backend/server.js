@@ -4,10 +4,12 @@ const bodyParser = require("body-parser");
 const responseTimeMiddleware = require("./middleware/responseTimeMiddleware");
 const connectDB = require("./mongodb");
 const studentRoute = require("./routes/studentRoute");
+const cors = require("cors");
 
 const app = express();
 const router = express.Router();
 
+app.use(cors());
 app.use(responseTimeMiddleware);
 
 app.use(bodyParser.json());
