@@ -7,6 +7,8 @@ const StudentList = () => {
     const [students, setStudents] = useState([]);
     const [modalShow, setModalShow] = useState(false);
     const [selectedStudent, setSelectedStudent] = useState(null);
+    const [confirmModalShow, setConfirmModalShow] = useState(false);
+    const [studentToDelete, setStudentToDelete] = useState(null);
 
     useEffect(() => {
         fetchStudents();
@@ -23,7 +25,13 @@ const StudentList = () => {
             });
     };
 
-    const handleDelete = (studentId) => {
+    const handleDelete = (student) => {
+        setStudentToDelete(student);
+        setConfirmModalShow(true);
+    };
+
+    const confirmDelete = () => {
+        const studentId = studentToDelete._id;
         Axios.delete(`http://localhost:5003/api/students/${studentId}`)
             .then((response) => {
                 // Filter out the deleted student from the state
@@ -31,6 +39,7 @@ const StudentList = () => {
                     prevStudents.filter((student) => student._id !== studentId)
                 );
                 console.log("Student deleted successfully");
+                setConfirmModalShow(false);
             })
             .catch((error) => {
                 console.error("Error deleting student:", error);
@@ -142,7 +151,7 @@ const StudentList = () => {
                                             className="btn btn-danger"
                                             style={{ margin: ".2rem" }}
                                             onClick={() =>
-                                                handleDelete(student._id)
+                                                handleDelete(student)
                                             }
                                         >
                                             Delete
@@ -160,6 +169,13 @@ const StudentList = () => {
                 onHide={handleModalClose}
                 student={selectedStudent}
                 onSubmit={handleModalSubmit}
+            />
+
+            <ConfirmDeleteModal
+                show={confirmModalShow}
+                onHide={() => setConfirmModalShow(false)}
+                onDelete={confirmDelete}
+                student={studentToDelete}
             />
         </div>
     );
@@ -273,6 +289,34 @@ function MyVerticallyCenteredModal({ show, onHide, student, onSubmit }) {
                     </div>
                 </form>
             </Modal.Body>
+        </Modal>
+    );
+}
+
+function ConfirmDeleteModal({ show, onHide, onDelete, student }) {
+    return (
+        <Modal
+            show={show}
+            onHide={onHide}
+            size="sm"
+            centered
+            backdrop="static"
+            keyboard={false}
+        >
+            <Modal.Header closeButton>
+                <Modal.Title>Delete Student</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <p>Are you sure you want to delete {student?.name}?</p>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={onHide}>
+                    Cancel
+                </Button>
+                <Button variant="danger" onClick={onDelete}>
+                    Delete
+                </Button>
+            </Modal.Footer>
         </Modal>
     );
 }
